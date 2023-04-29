@@ -1,30 +1,8 @@
 // ignore: prefer_const_constructors +const
 import 'package:flutter/material.dart';
 
-/***
- * 1.创建main函数,material就是集成一些Widget,scanford脚手架
- * 2.执行runApp函数
- * 3.传入Widget
- * 
- * Text需要方向参数
- */
-///main
-
-// void main() {
-//   runApp(const Center(
-//     child: Text(
-//       "hello world",
-//       textDirection: TextDirection.ltr,
-//       style: TextStyle(fontSize: 30, color: Colors.amber),
-//     ),
-//   ));
-// }
-
 void main(List<String> args) {
-  runApp(const MaterialApp(
-    title: 'Hello',
-    home: MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,30 +10,47 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Center(child: Text('我们标题'))),
-        body: const ContentWidget());
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: const Text('coderWhy')),
+            body: const HomeContent()));
   }
 }
 
-class ContentWidget extends StatelessWidget {
-  const ContentWidget({super.key});
-
+class HomeContent extends StatelessWidget {
+  const HomeContent({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Center(child: TextWidget());
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: const <Widget>[
+        ProductItem("Apple", "Mac"),
+        ProductItem("HuaWei", "phone"),
+        ProductItem("xiaomi", "band")
+      ],
+    );
   }
 }
 
-class TextWidget extends StatelessWidget {
-  const TextWidget({super.key});
-
+class ProductItem extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  const ProductItem(this.title, this.subtitle, {super.key});
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "hello world",
-      textDirection: TextDirection.ltr,
-      style: TextStyle(fontSize: 30, color: Colors.amber),
+    return Column(
+      children: <Widget>[
+        Text(
+          title,
+          style: const TextStyle(fontSize: 24),
+        ),
+        Text(subtitle),
+        const SizedBox(
+          height: 10,
+        ),
+        Image.network(
+            "https://ts1.cn.mm.bing.net/th/id/R-C.987f582c510be58755c4933cda68d525?rik=C0D21hJDYvXosw&riu=http%3a%2f%2fimg.pconline.com.cn%2fimages%2fupload%2fupc%2ftx%2fwallpaper%2f1305%2f16%2fc4%2f20990657_1368686545122.jpg&ehk=netN2qzcCVS4ALUQfDOwxAwFcy41oxC%2b0xTFvOYy5ds%3d&risl=&pid=ImgRaw&r=0")
+      ],
     );
   }
 }
